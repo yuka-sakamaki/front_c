@@ -1,5 +1,5 @@
-# 確認方法について
-1. git cloneをしてください
+# ローカル環境での確認方法について
+1. コードをcloneしてください
 ```
 git clone git@github.com:yuka-sakamaki/front_c.git
 ```
