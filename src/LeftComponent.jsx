@@ -1,16 +1,27 @@
+import {
+  SContainer,
+  SItemWrapper,
+  SText,
+  SBorder,
+  SButton,
+} from "./sharedStyles";
+
 export const LeftComponent = (props) => {
   const { lists, onClick } = props;
   return (
-    <>
-      <h1>左</h1>
-      <ul>
-        {lists.map((list, index) => (
-          <>
-            <div key={index}>{list.name}</div>
-          </>
-        ))}
-      </ul>
-      <button onClick={onClick}>右へ移動</button>
-    </>
+    <SContainer>
+      <SItemWrapper>
+        <ul>
+          {lists.map((list, index) => (
+            <SText>
+              <SBorder>
+                <div key={index}>{list.name}</div>
+              </SBorder>
+            </SText>
+          ))}
+        </ul>
+      </SItemWrapper>
+      <SButton onClick={onClick}>右へ移動</SButton>
+    </SContainer>
   );
 };
