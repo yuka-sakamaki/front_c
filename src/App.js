@@ -1,43 +1,35 @@
 import React from "react";
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
+import { LeftComponent } from "./LeftComponent";
+import { RightComponent } from "./RightComponent";
 
 function App() {
   const lists = useSelector((state) => state.lists);
+  const leftLists = lists.filter((lists) => lists.isLeft === true);
+  const rightLists = lists.filter((lists) => lists.isLeft === false);
   const dispatch = useDispatch();
-  const doneList = (name) => {
-    dispatch({ type: "DONE_LIST", payload: name });
+  const toLeft = (name) => {
+    dispatch({ type: "LEFT_LIST", payload: name });
   };
-  const doneLists = (name) => {
-    dispatch({ type: "DONE_LISTS", payload: name });
+  const toRight = (name) => {
+    dispatch({ type: "RIGHT_LIST", payload: name });
   };
 
   return (
     <div className="App">
-      <h1>ReduxでTodoリスト作成</h1>
-      <h2>未完了のTodoリスト</h2>
-      <ul>
-        {lists
-          .filter((list) => list.complete === false)
-          .map((list, index) => (
-            <div key={index}>
-              {list.name}
-              <button onClick={() => doneList(list.name)}>完了</button>
-            </div>
-          ))}
-      </ul>
-      <h2>完了したTodoリスト</h2>
-      <ul>
-        {lists
-          .filter((list) => list.complete === true)
-          .map((list, index) => (
-            <div key={index}>
-              {list.id}
-              {list.name}
-              <button onClick={() => doneLists(list.name)}>完了</button>
-            </div>
-          ))}
-      </ul>
+      <LeftComponent
+        lists={leftLists}
+        onClick={() => {
+          toRight(leftLists.slice(-1)[0].name);
+        }}
+      />
+      <RightComponent
+        lists={rightLists}
+        onClick={() => {
+          toLeft(rightLists.slice(-1)[0].name);
+        }}
+      />
     </div>
   );
 }
